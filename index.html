@@ -147,6 +147,11 @@
         <!-- <h3>96_type2</h3> -->
         <div id="type2_96"></div>
     </section>
+
+    <section>
+        <h3>65%</h3>
+        <div id="type1_65"></div>
+    </section>
 </body>
 <script>
 var KEYBOARD = {};
@@ -345,6 +350,30 @@ KEYBOARD['kbt_pure_pro'] = [
     }
 ];
 
+
+KEYBOARD['type1_65'] = [
+    {
+        val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space', 'Home'],
+        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1']
+    },
+    {
+        val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'Pg up'],
+        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1']
+    },
+    {
+        val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter', 'Pg dn'],
+        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1']
+    },
+    {
+        val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift', 'Up', 'End'],
+        size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1']
+    },
+    {
+        val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Left', 'Down', 'Left'],
+        size: ['1_25', '1_25', '1_25', '6_25', '1', '1', '1', '1', '1', '1']
+    },
+];
+
 initKeyboard(document.querySelector('#core_40'), KEYBOARD['core_40']);
 
 initKeyboard(document.querySelector('#race3'), KEYBOARD['race3']);
@@ -364,6 +393,8 @@ initKeyboard(document.querySelector('#kbt_pure_pro'), KEYBOARD['kbt_pure_pro']);
 // initKeyboard(document.querySelector('#type1_96'), KEYBOARD['type1_96']);
 
 // initKeyboard(document.querySelector('#type2_96'), KEYBOARD['type2_96']);
+
+initKeyboard(document.querySelector('#type1_65'), KEYBOARD['type1_65']);
 </script>
 
 </html>
