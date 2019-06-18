@@ -78,7 +78,7 @@
                     if (model[i].size[j].search('enter') !== -1) {
                         keycaps.innerHTML = model[i].size[j].replace('_', '');
                     } else {
-                        keycaps.innerHTML = model[i].size[j].replace('_', 'x') + 'U';
+                        keycaps.innerHTML = model[i].size[j].replace('_', '.') + 'U';
                     }
                 }
                 row.appendChild(keycaps);
@@ -151,6 +151,11 @@
     <section>
         <h3>65%</h3>
         <div id="type1_65"></div>
+    </section>
+
+    <section>
+        <h3>BIOI G60BLE</h3>
+        <div id="bioi_g60ble"></div>
     </section>
 </body>
 <script>
@@ -374,6 +379,20 @@ KEYBOARD['type1_65'] = [
     },
 ];
 
+KEYBOARD['bioi_g60ble'] = [
+    {
+        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
+    }, {
+        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
+    }, {
+        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
+    }, {
+        size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1']
+    }, {
+        size: ['1_5', '1', '1_5', '7', '1_5', '1', '1_5']
+    }
+];
+
 initKeyboard(document.querySelector('#core_40'), KEYBOARD['core_40']);
 
 initKeyboard(document.querySelector('#race3'), KEYBOARD['race3']);
@@ -395,6 +414,8 @@ initKeyboard(document.querySelector('#kbt_pure_pro'), KEYBOARD['kbt_pure_pro']);
 // initKeyboard(document.querySelector('#type2_96'), KEYBOARD['type2_96']);
 
 initKeyboard(document.querySelector('#type1_65'), KEYBOARD['type1_65']);
+
+initKeyboard(document.querySelector('#bioi_g60ble'), KEYBOARD['bioi_g60ble']);
 </script>
 
 </html>
