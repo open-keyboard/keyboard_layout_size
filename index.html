@@ -1,421 +1,450 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Keyboard layout size</title>
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
-    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset200802.css">
-    <link rel="stylesheet" href="./keycaps.css">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-    <style>
-    body {
-        padding: .5rem;
-        box-sizing: border-box;
-    }
-
-    h1 {
-        text-align: center;
-    }
-
-    h2,
-    h3 {
-        margin: .67em .5rem;
-    }
-    /* clear float */
-
-    .clearfix:after {
-        display: table;
-        content: "";
-        line-height: 0;
-        clear: both;
-    }
-
-    .keycaps {
-        display: inline-block;
-        vertical-align: top;
-        /* float: left; */
-    }
-
-    .row {
-        height: 56px;
-    }
-    h2 {
-        color: #777;
-    }
-    h3 {
-        font-weight: bold;
-    }
-    section {
-        margin: 2rem .5rem;
-    }
-    </style>
-    <script>
-    function initKeyboard(dom, model) {
-        if (!dom) {
-            console.error('not set dom');
-            return;
-        }
-        if (!model) {
-            console.error('not set model');
-            return;
-        }
-        var keyboard = document.createElement('div'),
-            rowCount = [];
-        for (var i = 0; i < model.length; i++) {
-            rowCount.push(model[i]['size'].length);
-        }
-        keyboard.setAttribute('class', 'keyboard');
-        for (var i = 0; i < model.length; i++) {
-        // for (var i = model.length - 1; i >= 0; i--) {
-            var row = document.createElement('div');
-            row.setAttribute('class', 'row');
-            for (var j = 0; j < rowCount[i]; j++) {
-                var keycaps = document.createElement('div');
-                keycaps.setAttribute('class', 'keycaps keycap_' + model[i].size[j]);
-                if (model[i].size[j].search('blank') === -1) {
-                    if (model[i].size[j].search('enter') !== -1) {
-                        keycaps.innerHTML = model[i].size[j].replace('_', '');
-                    } else {
-                        keycaps.innerHTML = model[i].size[j].replace('_', '.') + 'U';
-                    }
-                }
-                row.appendChild(keycaps);
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Keyboard layout size</title>
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
+        <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset200802.css">
+        <link rel="stylesheet" href="./keycaps.css">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+            integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+        <style>
+            body {
+                padding: .5rem;
+                box-sizing: border-box;
             }
-            keyboard.appendChild(row);
+
+            h1 {
+                text-align: center;
+            }
+
+            h2,
+            h3 {
+                margin: .67em .5rem;
+            }
+
+            /* clear float */
+
+            .clearfix:after {
+                display: table;
+                content: "";
+                line-height: 0;
+                clear: both;
+            }
+
+            .keycaps {
+                display: inline-block;
+                vertical-align: top;
+                /* float: left; */
+            }
+
+            .row {
+                height: 56px;
+            }
+
+            h2 {
+                color: #777;
+            }
+
+            h3 {
+                font-weight: bold;
+            }
+
+            section {
+                margin: 2rem .5rem;
+            }
+        </style>
+        <script>
+            function initKeyboard(dom, model) {
+                if (!dom) {
+                    console.error('not set dom');
+                    return;
+                }
+                if (!model) {
+                    console.error('not set model');
+                    return;
+                }
+                var keyboard = document.createElement('div'),
+                    rowCount = [];
+                for (var i = 0; i < model.length; i++) {
+                    rowCount.push(model[i]['size'].length);
+                }
+                keyboard.setAttribute('class', 'keyboard');
+                for (var i = 0; i < model.length; i++) {
+                    // for (var i = model.length - 1; i >= 0; i--) {
+                    var row = document.createElement('div');
+                    row.setAttribute('class', 'row');
+                    for (var j = 0; j < rowCount[i]; j++) {
+                        var keycaps = document.createElement('div');
+                        keycaps.setAttribute('class', 'keycaps keycap_' + model[i].size[j]);
+                        if (model[i].size[j].search('blank') === -1) {
+                            if (model[i].size[j].search('enter') !== -1) {
+                                keycaps.innerHTML = model[i].size[j].replace('_', '');
+                            } else {
+                                keycaps.innerHTML = model[i].size[j].replace('_', '.') + 'U';
+                            }
+                        }
+                        row.appendChild(keycaps);
+                    }
+                    keyboard.appendChild(row);
+                }
+                var size = 0;
+                for (var i = 0; i < model[0]['size'].length; i++) {
+                    size = size + parseFloat(model[0]['size'][i].replace('_', '.'), 10);
+                }
+                dom.style.width = size * 56 + 'px';
+                dom.appendChild(keyboard);
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1>Keyboard Layout Size</h1>
+        <h2>This page provide Some Keyboard Model you can check keycaps Size</h2>
+        <section>
+            <h3>Vortex Core 40</h3>
+            <div id="core_40"></div>
+        </section>
+
+        <section>
+            <h3>Vortex Race 3</h3>
+            <div id="race3"></div>
+        </section>
+
+        <section>
+            <h3>Yoda 2 ANSI</h3>
+            <div id="yoda2_ansi"></div>
+        </section>
+
+        <section>
+            <h3>Yoda 2 ISO</h3>
+            <div id="yoda2_iso"></div>
+        </section>
+
+        <section>
+            <h3>Yoda 2 DIY</h3>
+            <div id="yoda2_diy"></div>
+        </section>
+
+        <section>
+            <h3>Leopold FC980M</h3>
+            <div id="fc_980"></div>
+        </section>
+
+        <section>
+            <h3>KBT Pure</h3>
+            <div id="kbt_pure"></div>
+        </section>
+
+        <section>
+            <h3>KBT Pure Pro</h3>
+            <div id="kbt_pure_pro"></div>
+        </section>
+
+        <section>
+            <!-- <h3>96_type1</h3> -->
+            <div id="type1_96"></div>
+        </section>
+
+        <section>
+            <!-- <h3>96_type2</h3> -->
+            <div id="type2_96"></div>
+        </section>
+
+        <section>
+            <h3>65%</h3>
+            <div id="type1_65"></div>
+        </section>
+
+        <section>
+            <h3>BIOI G60BLE</h3>
+            <div id="bioi_g60ble"></div>
+        </section>
+
+        <section>
+            <h3>Morgan 65</h3>
+            <div id="morgan_65"></div>
+        </section>
+    </body>
+    <script>
+        var KEYBOARD = {};
+
+        KEYBOARD['core_40'] = [
+            {
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+            },
+            {
+                size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75']
+            },
+            {
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_25', '1']
+            },
+            {
+                size: ['1_25', '1', '1', '1', '1_75', '2_75', '1', '1', '1', '1_25']
+            }
+        ];
+
+        KEYBOARD['race3'] = [{
+            val: ['esc', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'Pn', 'Delete'],
+            size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
+        },
+        {
+            val: ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space', 'Home'],
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1']
+        },
+        {
+            val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\/', 'PgUp'],
+            size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1']
+        },
+        {
+            val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter', 'PgDn'],
+            size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1']
+        },
+        {
+            val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift', 'Up', 'End'],
+            size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1']
+        },
+        {
+            val: ['Ctrl', 'Option', 'Command', 'Spacebar', 'Command', 'Option', 'Ctrl', 'Left', 'Down', 'Right'],
+            size: ['1_25', '1_25', '1_25', '6_25', '1', '1', '1', '1', '1', '1']
         }
-        var size = 0;
-        for (var i = 0; i < model[0]['size'].length; i++) {
-            size = size + parseFloat(model[0]['size'][i].replace('_', '.'), 10);
+        ];
+
+        KEYBOARD['yoda2_ansi'] = [
+            {
+                val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space'],
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
+            },
+            {
+                val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'],
+                size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
+            },
+            {
+                val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter'],
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
+            },
+            {
+                val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift'],
+                size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75']
+            },
+            {
+                val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
+                size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', '1_25', '1_25']
+            },
+            {
+                val: ['', '', '', '', 'Mouse left', 'FN1', 'Mouse right', '', '', '', '', '', ''],
+                size: ['blank_1_25', 'blank_1_25', 'blank_1_25', 'blank_1_25', '1_25', '1', '1_25', 'blank_1_25', 'blank_1_25', 'blank_1', 'blank_1', 'blank_1', 'blank_1']
+            }
+        ];
+
+        KEYBOARD['yoda2_iso'] = [
+            {
+                val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space'],
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
+            }, {
+                val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', 'Enter'],
+                size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'enter_iso']
+            }, {
+                val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', '\\'],
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+            }, {
+                val: ['Shift', '<', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift'],
+                size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75']
+            }, {
+                val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
+                size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', '1_25', '1_25']
+            }, {
+                val: ['', '', '', '', 'Mouse left', 'FN1', 'Mouse right', '', '', '', '', '', ''],
+                size: ['blank_1_25', 'blank_1_25', 'blank_1_25', 'blank_1_25', '1_25', '1', '1_25', 'blank_1_25', 'blank_1_25', 'blank_1', 'blank_1', 'blank_1', 'blank_1']
+            }
+        ];
+
+        KEYBOARD['yoda2_diy'] = [
+            {
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+            }, {
+                size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'enter_iso']
+            }, {
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+            }, {
+                size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1']
+            }, {
+                size: ['1_5', '1_5', '1_5', '6', '1_5', '1_5', '1_5']
+            }, {
+                size: ['blank_1_25', 'blank_1_25', 'blank_1_25', 'blank_1_25', '1_25', '1', '1_25', 'blank_1_25', 'blank_1_25', 'blank_1', 'blank_1', 'blank_1', 'blank_1']
+            }
+        ];
+
+        KEYBOARD['fc_980'] = [{
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+        },
+        {
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1', '1', '1', '1']
+        },
+        {
+            size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1', '1', '1', 'enter']
+        },
+        {
+            size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1', '1', '1']
+        },
+        {
+            size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1', '1', '1', 'enter']
+        },
+        {
+            size: ['1_25', '1', '1_25', '6_25', '1', '1', '1_25', '1', '1', '1', '1', '1']
         }
-        dom.style.width = size * 56 + 'px';
-        dom.appendChild(keyboard);
-    }
+        ];
+
+        KEYBOARD['type1_96'] = [{
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+        },
+        {
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1', '1', '1', '1']
+        },
+        {
+            size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1', '1', '1', 'enter']
+        },
+        {
+            size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1', '1', '1']
+        },
+        {
+            size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1', '1', '1', 'enter']
+        },
+        {
+            size: ['1_25', '1_25', '1_25', '6_25', '1', '1', '1', '1', '1', '1', '1', '1']
+        }
+        ];
+
+        KEYBOARD['type2_96'] = [{
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+        },
+        {
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1', '1', '1', '1']
+        },
+        {
+            size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1', '1', '1', 'enter']
+        },
+        {
+            size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1', '1', '1']
+        },
+        {
+            size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75', '1', '1', '1', 'enter']
+        },
+        {
+            size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', '1_25', '1_25', '1', '1', '1']
+        }
+        ];
+
+        KEYBOARD['kbt_pure'] = [
+            {
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
+            }, {
+                size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
+            }, {
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
+            }, {
+                size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1']
+            }, {
+                size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', '1_25', '1_25']
+            }
+        ];
+
+        KEYBOARD['kbt_pure_pro'] = [
+            {
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+            }, {
+                size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
+            }, {
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
+            }, {
+                size: ['2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+            }, {
+                size: ['1_25', '1', '1', '1_25', '4_5', '1', '1', '1', '1', '1', '1']
+            }
+        ];
+
+
+        KEYBOARD['type1_65'] = [
+            {
+                val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space', 'Home'],
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1']
+            },
+            {
+                val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'Pg up'],
+                size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1']
+            },
+            {
+                val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter', 'Pg dn'],
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1']
+            },
+            {
+                val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift', 'Up', 'End'],
+                size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1']
+            },
+            {
+                val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Left', 'Down', 'Left'],
+                size: ['1_25', '1_25', '1_25', '6_25', '1', '1', '1', '1', '1', '1']
+            },
+        ];
+
+        KEYBOARD['bioi_g60ble'] = [
+            {
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
+            }, {
+                size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
+            }, {
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
+            }, {
+                size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1']
+            }, {
+                size: ['1_5', '1', '1_5', '7', '1_5', '1', '1_5']
+            }
+        ];
+
+        KEYBOARD['morgan_65'] = [
+            {
+                size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1']
+            }, {
+                size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1']
+            }, {
+                size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1']
+            }, {
+                size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1']
+            }, {
+                size: ['1_5', '1', '1_5', '7', '1_5', 'blank_0_5', '1', '1', '1']
+            }, {
+                size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25']
+            }
+        ];
+
+        initKeyboard(document.querySelector('#core_40'), KEYBOARD['core_40']);
+
+        initKeyboard(document.querySelector('#race3'), KEYBOARD['race3']);
+
+        initKeyboard(document.querySelector('#yoda2_ansi'), KEYBOARD['yoda2_ansi']);
+
+        initKeyboard(document.querySelector('#yoda2_iso'), KEYBOARD['yoda2_iso']);
+
+        initKeyboard(document.querySelector('#yoda2_diy'), KEYBOARD['yoda2_diy']);
+
+        initKeyboard(document.querySelector('#fc_980'), KEYBOARD['fc_980']);
+
+        initKeyboard(document.querySelector('#kbt_pure'), KEYBOARD['kbt_pure']);
+
+        initKeyboard(document.querySelector('#kbt_pure_pro'), KEYBOARD['kbt_pure_pro']);
+
+        // initKeyboard(document.querySelector('#type1_96'), KEYBOARD['type1_96']);
+
+        // initKeyboard(document.querySelector('#type2_96'), KEYBOARD['type2_96']);
+
+        initKeyboard(document.querySelector('#type1_65'), KEYBOARD['type1_65']);
+
+        initKeyboard(document.querySelector('#bioi_g60ble'), KEYBOARD['bioi_g60ble']);
+
+        initKeyboard(document.querySelector('#morgan_65'), KEYBOARD['morgan_65']);
     </script>
-</head>
-
-<body>
-    <h1>Keyboard Layout Size</h1>
-    <h2>This page provide Some Keyboard Model you can check keycaps Size</h2>
-    <section>
-        <h3>Vortex Core 40</h3>
-        <div id="core_40"></div>
-    </section>
-
-    <section>
-        <h3>Vortex Race 3</h3>
-        <div id="race3"></div>
-    </section>
-
-    <section>
-        <h3>Yoda 2 ANSI</h3>
-        <div id="yoda2_ansi"></div>
-    </section>
-
-    <section>
-        <h3>Yoda 2 ISO</h3>
-        <div id="yoda2_iso"></div>
-    </section>
-
-    <section>
-        <h3>Yoda 2 DIY</h3>
-        <div id="yoda2_diy"></div>
-    </section>
-
-    <section>
-        <h3>Leopold FC980M</h3>
-        <div id="fc_980"></div>
-    </section>
-
-    <section>
-        <h3>KBT Pure</h3>
-        <div id="kbt_pure"></div>
-    </section>
-
-    <section>
-        <h3>KBT Pure Pro</h3>
-        <div id="kbt_pure_pro"></div>
-    </section>
-
-    <section>
-        <!-- <h3>96_type1</h3> -->
-        <div id="type1_96"></div>
-    </section>
-
-    <section>
-        <!-- <h3>96_type2</h3> -->
-        <div id="type2_96"></div>
-    </section>
-
-    <section>
-        <h3>65%</h3>
-        <div id="type1_65"></div>
-    </section>
-
-    <section>
-        <h3>BIOI G60BLE</h3>
-        <div id="bioi_g60ble"></div>
-    </section>
-</body>
-<script>
-var KEYBOARD = {};
-
-KEYBOARD['core_40'] = [
-    {
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    },
-    {
-        size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75']
-    },
-    {
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_25', '1']
-    },
-    {
-        size: ['1_25', '1', '1', '1', '1_75', '2_75', '1', '1', '1', '1_25']
-    }
-];
-
-KEYBOARD['race3'] = [{
-        val: ['esc', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'Pn', 'Delete'],
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
-    },
-    {
-        val: ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space', 'Home'],
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1']
-    },
-    {
-        val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\/', 'PgUp'],
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1']
-    },
-    {
-        val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter', 'PgDn'],
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1']
-    },
-    {
-        val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift', 'Up', 'End'],
-        size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1']
-    },
-    {
-        val: ['Ctrl', 'Option', 'Command', 'Spacebar', 'Command', 'Option', 'Ctrl', 'Left', 'Down', 'Right'],
-        size: ['1_25', '1_25', '1_25', '6_25', '1', '1', '1', '1', '1', '1']
-    }
-];
-
-KEYBOARD['yoda2_ansi'] = [
-    {
-        val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space'],
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
-    },
-    {
-        val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'],
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
-    },
-    {
-        val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter'],
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
-    },
-    {
-        val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift'],
-        size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75']
-    },
-    {
-        val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
-        size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', '1_25', '1_25']
-    },
-    {
-        val: ['', '', '', '', 'Mouse left', 'FN1', 'Mouse right', '', '', '', '', '', ''],
-        size: ['blank_1_25', 'blank_1_25', 'blank_1_25', 'blank_1_25', '1_25', '1', '1_25', 'blank_1_25', 'blank_1_25', 'blank_1', 'blank_1', 'blank_1', 'blank_1']
-    }
-];
-
-KEYBOARD['yoda2_iso'] = [
-    {
-        val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space'],
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
-    }, {
-        val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', 'Enter'],
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'enter_iso']
-    }, {
-        val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', '\\'],
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    }, {
-        val: ['Shift', '<', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift'],
-        size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75']
-    }, {
-        val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
-        size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', '1_25', '1_25']
-    }, {
-        val: ['', '', '', '', 'Mouse left', 'FN1', 'Mouse right', '', '', '', '', '', ''],
-        size: ['blank_1_25', 'blank_1_25', 'blank_1_25', 'blank_1_25', '1_25', '1', '1_25', 'blank_1_25', 'blank_1_25', 'blank_1', 'blank_1', 'blank_1', 'blank_1']
-    }
-];
-
-KEYBOARD['yoda2_diy'] = [
-    {
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    }, {
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'enter_iso']
-    }, {
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    }, {
-        size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1']
-    }, {
-        size: ['1_5', '1_5', '1_5', '6', '1_5', '1_5', '1_5']
-    }, {
-        size: ['blank_1_25', 'blank_1_25', 'blank_1_25', 'blank_1_25', '1_25', '1', '1_25', 'blank_1_25', 'blank_1_25', 'blank_1', 'blank_1', 'blank_1', 'blank_1']
-    }
-];
-
-KEYBOARD['fc_980'] = [{
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    },
-    {
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1', '1', '1', '1']
-    },
-    {
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1', '1', '1', 'enter']
-    },
-    {
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1', '1', '1']
-    },
-    {
-        size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1', '1', '1', 'enter']
-    },
-    {
-        size: ['1_25', '1', '1_25', '6_25', '1', '1', '1_25', '1', '1', '1', '1', '1']
-    }
-];
-
-KEYBOARD['type1_96'] = [{
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    },
-    {
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1', '1', '1', '1']
-    },
-    {
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1', '1', '1', 'enter']
-    },
-    {
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1', '1', '1']
-    },
-    {
-        size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1', '1', '1', 'enter']
-    },
-    {
-        size: ['1_25', '1_25', '1_25', '6_25', '1', '1', '1', '1', '1', '1', '1', '1']
-    }
-];
-
-KEYBOARD['type2_96'] = [{
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    },
-    {
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1', '1', '1', '1']
-    },
-    {
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1', '1', '1', 'enter']
-    },
-    {
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1', '1', '1']
-    },
-    {
-        size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75', '1', '1', '1', 'enter']
-    },
-    {
-        size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', '1_25', '1_25', '1', '1', '1']
-    }
-];
-
-KEYBOARD['kbt_pure'] = [
-    {
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
-    }, {
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
-    }, {
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
-    }, {
-        size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1']
-    }, {
-        size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', '1_25', '1_25']
-    }
-];
-
-KEYBOARD['kbt_pure_pro'] = [
-    {
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    }, {
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
-    }, {
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
-    }, {
-        size: ['2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
-    }, {
-        size: ['1_25', '1', '1', '1_25', '4_5', '1', '1', '1', '1', '1', '1']
-    }
-];
-
-
-KEYBOARD['type1_65'] = [
-    {
-        val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space', 'Home'],
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1']
-    },
-    {
-        val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'Pg up'],
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1']
-    },
-    {
-        val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter', 'Pg dn'],
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1']
-    },
-    {
-        val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift', 'Up', 'End'],
-        size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1']
-    },
-    {
-        val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Left', 'Down', 'Left'],
-        size: ['1_25', '1_25', '1_25', '6_25', '1', '1', '1', '1', '1', '1']
-    },
-];
-
-KEYBOARD['bioi_g60ble'] = [
-    {
-        size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
-    }, {
-        size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
-    }, {
-        size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
-    }, {
-        size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1']
-    }, {
-        size: ['1_5', '1', '1_5', '7', '1_5', '1', '1_5']
-    }
-];
-
-initKeyboard(document.querySelector('#core_40'), KEYBOARD['core_40']);
-
-initKeyboard(document.querySelector('#race3'), KEYBOARD['race3']);
-
-initKeyboard(document.querySelector('#yoda2_ansi'), KEYBOARD['yoda2_ansi']);
-
-initKeyboard(document.querySelector('#yoda2_iso'), KEYBOARD['yoda2_iso']);
-
-initKeyboard(document.querySelector('#yoda2_diy'), KEYBOARD['yoda2_diy']);
-
-initKeyboard(document.querySelector('#fc_980'), KEYBOARD['fc_980']);
-
-initKeyboard(document.querySelector('#kbt_pure'), KEYBOARD['kbt_pure']);
-
-initKeyboard(document.querySelector('#kbt_pure_pro'), KEYBOARD['kbt_pure_pro']);
-
-// initKeyboard(document.querySelector('#type1_96'), KEYBOARD['type1_96']);
-
-// initKeyboard(document.querySelector('#type2_96'), KEYBOARD['type2_96']);
-
-initKeyboard(document.querySelector('#type1_65'), KEYBOARD['type1_65']);
-
-initKeyboard(document.querySelector('#bioi_g60ble'), KEYBOARD['bioi_g60ble']);
-</script>
 
 </html>
