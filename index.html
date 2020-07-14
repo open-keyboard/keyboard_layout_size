@@ -57,12 +57,19 @@
                 margin: 2rem .5rem;
             }
 
+            .small {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                font-size: 12px;
+            }
+
             #ergorth>.keyboard>.row:nth-child(4)>.keycap_1_5_col {
                 top: calc(-56px/2);
             }
         </style>
         <script>
-            function initKeyboard(dom, model) {
+            function initKeyboard(dom, model, val) {
                 if (!dom) {
                     console.error('not set dom');
                     return;
@@ -85,10 +92,22 @@
                         var keycaps = document.createElement('div');
                         keycaps.setAttribute('class', 'keycaps keycap_' + model[i].size[j]);
                         if (model[i].size[j].search('blank') === -1) {
-                            if (model[i].size[j].search('enter') !== -1) {
-                                keycaps.innerHTML = model[i].size[j].replace('_', '');
+                            if (val) {
+                                keycaps.innerHTML = model[i].val[j];
+                                var vdom = document.createElement('div');
+                                vdom.setAttribute('class', 'small');
+                                if (model[i].size[j].search('enter') !== -1) {
+                                    vdom.innerHTML = model[i].size[j].replace('_', '');
+                                } else {
+                                    vdom.innerHTML = model[i].size[j].replace('_', '.') + 'U';
+                                }
+                                keycaps.append(vdom);
                             } else {
-                                keycaps.innerHTML = model[i].size[j].replace('_', '.') + 'U';
+                                if (model[i].size[j].search('enter') !== -1) {
+                                    keycaps.innerHTML = model[i].size[j].replace('_', '');
+                                } else {
+                                    keycaps.innerHTML = model[i].size[j].replace('_', '.') + 'U';
+                                }
                             }
                         }
                         row.appendChild(keycaps);
@@ -468,41 +487,46 @@
 
         KEYBOARD['ergorth'] = [
             {
+                val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '+', 'BS'],
                 size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_25']
             },
             {
+                val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Shift', 'Shift', 'Y', 'U', 'I', 'O', 'P', '\\'],
                 size: ['1_25', '1', '1', '1', '1', '1', '1_5_col', '1_5_col', '1', '1', '1', '1', '1', '1_25']
             },
             {
+                val: ['Caps', 'A', 'S', 'D', 'F', 'G', 'BLANK_1', 'BLANK_1', 'H', 'J', 'K', 'L', ';', '\''],
                 size: ['1_25', '1', '1', '1', '1', '1', 'blank_1', 'blank_1', '1', '1', '1', '1', '1', '1_25']
             },
             {
+                val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'Enter', 'Enter', 'N', 'M', ',', '.', '/', 'Shift'],
                 size: ['1_25', '1', '1', '1', '1', '1', '1_5_col', '1_5_col', '1', '1', '1', '1', '1', '1_25']
             },
             {
+                val: ['blank_1_25', 'Fn', 'Ctrl', 'Opt', 'Cmd', 'Space', 'Space', 'left', 'down', 'up', 'right', 'blank_1_25'],
                 size: ['blank_1_25', '1', '1', '1', '1', '2', '2', '1', '1', '1', '1', 'blank_1_25']
             }
         ];
 
         KEYBOARD['rm6'] = [
             {
-                val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space'],
+                val: ['⎋', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '⌫'],
                 size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
             },
             {
-                val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'],
+                val: ['⇥', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'],
                 size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5']
             },
             {
-                val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter'],
+                val: ['⇪', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', '↵'],
                 size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
             },
             {
-                val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift'],
+                val: ['⇧', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '⇧'],
                 size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75']
             },
             {
-                val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
+                val: ['', '⌥', '⌘', 'Spacebar', '⌘', '⌥', ''],
                 size: ['blank_1_25', '1', '1_5', '7', '1_5', '1', 'blank_1_25']
             }
         ];
@@ -535,9 +559,9 @@
 
         initKeyboard(document.querySelector('#razer_blackwidow_lite'), KEYBOARD['razer_blackwidow_lite']);
 
-        initKeyboard(document.querySelector('#ergorth'), KEYBOARD['ergorth']);
+        initKeyboard(document.querySelector('#ergorth'), KEYBOARD['ergorth'], true);
 
-        initKeyboard(document.querySelector('#rm6'), KEYBOARD['rm6']);
+        initKeyboard(document.querySelector('#rm6'), KEYBOARD['rm6'], true);
     </script>
 
 </html>
