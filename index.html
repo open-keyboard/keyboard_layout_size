@@ -72,6 +72,44 @@
             height: calc(-56px/2);
             border: 7px solid transparent;
         }
+
+        /* susuwatar */
+        .susuwatar .keycap_1 {
+            background-color: rgb(93, 89, 86);
+            border-color: rgb(45, 41, 38);
+            color: rgb(176, 170, 152);
+        }
+
+        .susuwatar .keycap_1_25,
+        .susuwatar .keycap_2,
+        .susuwatar .keycap_1_5_col {
+            background-color: rgb(68, 68, 68);
+            border-color: rgb(11, 11, 11);
+        }
+
+        .susuwatar>div>div:nth-child(1)>div:nth-child(1),
+        .susuwatar>div>div:nth-child(1)>div:nth-child(14) {
+            background: rgb(206, 81, 62);
+            border-color: rgb(192, 31, 7);
+        }
+
+        .susuwatar>div>div:nth-child(5)>div:nth-child(2),
+        .susuwatar>div>div:nth-child(5)>div:nth-child(3),
+        .susuwatar>div>div:nth-child(5)>div:nth-child(4),
+        .susuwatar>div>div:nth-child(5)>div:nth-child(5),
+        .susuwatar>div>div:nth-child(5)>div:nth-child(8),
+        .susuwatar>div>div:nth-child(5)>div:nth-child(9),
+        .susuwatar>div>div:nth-child(5)>div:nth-child(10),
+        .susuwatar>div>div:nth-child(5)>div:nth-child(11) {
+            color: rgb(46, 142, 195);
+        }
+
+        .susuwatar>div>div:nth-child(2)>div:nth-child(3),
+        .susuwatar>div>div:nth-child(3)>div:nth-child(2),
+        .susuwatar>div>div:nth-child(3)>div:nth-child(3),
+        .susuwatar>div>div:nth-child(3)>div:nth-child(4) {
+            color: rgb(245, 87, 30);
+        }
     </style>
     <script>
         function initKeyboard(dom, model, val) {
@@ -204,7 +242,7 @@
     </section>
     <section>
         <h3>ergorth</h3>
-        <div id="ergorth"></div>
+        <div id="ergorth" class="susuwatar"></div>
     </section>
     <section>
         <h3>RM6</h3>
@@ -214,6 +252,16 @@
     <section>
         <h3>M93</h3>
         <div id="m93"></div>
+    </section>
+
+    <section>
+        <h3>custom 60%</h3>
+        <div id="custom_60"></div>
+    </section>
+
+    <section>
+        <h3>Time reforged(hotswap ver)</h3>
+        <div id="time_reforged_hotswap"></div>
     </section>
 
 </body>
@@ -565,6 +613,71 @@
         }
     ];
 
+    KEYBOARD['custom_60'] = [
+        {
+            val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space'],
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2']
+        },
+        {
+            val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', 'Enter'],
+            size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'enter_iso']
+        }, {
+            val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', '\\'],
+            size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']
+        },
+        {
+            val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift'],
+            size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75']
+        },
+        {
+            val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
+            size: ['1_5', '1', '1_5', '3', '2_75', '1_5', '1_25', '1_25', '1_25']
+        },
+        {
+            val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
+            size: ['blank_1']
+        },
+        {
+            val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
+            size: ['1_5', '1', '1_5', '3', '3', '1_5', '1', '1', '1_5']
+        },
+        {
+            val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
+            size: ['blank_1']
+        },
+        {
+            val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'FN1', 'Alt', 'Win', 'Ctrl'],
+            size: ['1_25', '1_25', '1_5', '3', '3', '1_25', '1_25', '1_25', '1_25']
+        },
+    ];
+
+    KEYBOARD['time_reforged_hotswap'] = [
+        {
+            val: ['Esc', '', 'F1', 'F2', 'F3', 'F4', '', 'F5', 'F6', 'F7', 'F8', '', 'F9', 'F10', 'F11', 'F12', '', 'prtSc', 'Scrlk', 'Pause'],
+            size: ['1', 'blank_1', '1', '1', '1', '1', 'blank_0_5', '1', '1', '1', '1', 'blank_0_5', '1', '1', '1', '1', 'blank_0_5', '1', '1', '1']
+        },
+        {
+            val: ['Esc', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Back Space', '', 'Ins', 'Home', 'Pgup'],
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', 'blank_0_5', '1', '1', '1']
+        },
+        {
+            val: ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', '', 'Del', 'End', 'Pgdn'],
+            size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', 'blank_0_5', '1', '1', '1']
+        },
+        {
+            val: ['Caps Lock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter'],
+            size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25']
+        },
+        {
+            val: ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'Shift', '', '', 'Up'],
+            size: ['2_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_75', 'blank_0_5', 'blank_1', '1']
+        },
+        {
+            val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'Alt', 'Win', 'Ctrl', '', 'Left', 'Down', 'Right'],
+            size: ['1_5', '1', '1_5', '7', '1_5', '1', '1_5', 'blank_0_5', '1', '1', '1']
+        }
+    ];
+
     initKeyboard(document.querySelector('#core_40'), KEYBOARD['core_40']);
 
     initKeyboard(document.querySelector('#race3'), KEYBOARD['race3']);
@@ -598,6 +711,25 @@
     initKeyboard(document.querySelector('#rm6'), KEYBOARD['rm6'], true);
 
     initKeyboard(document.querySelector('#m93'), KEYBOARD['m93']);
+
+    initKeyboard(document.querySelector('#custom_60'), KEYBOARD['custom_60']);
+
+    initKeyboard(document.querySelector('#time_reforged_hotswap'), KEYBOARD['time_reforged_hotswap']);
+
+
+    // susuwatar
+    for (let index = 0; index < document.querySelectorAll(".susuwatar .keycap_1_25").length; index++) {
+        document.querySelectorAll(".susuwatar .keycap_1_25")[index].innerHTML = '';
+
+    }
+    for (let index = 0; index < document.querySelectorAll(".susuwatar .keycap_2").length; index++) {
+        document.querySelectorAll(".susuwatar .keycap_2")[index].innerHTML = '';
+
+    }
+    for (let index = 0; index < document.querySelectorAll(".susuwatar .keycap_1_5_col").length; index++) {
+        document.querySelectorAll(".susuwatar .keycap_1_5_col")[index].innerHTML = '';
+
+    }
 </script>
 
 </html>
