@@ -264,6 +264,11 @@
         <div id="time_reforged_hotswap"></div>
     </section>
 
+    <section>
+        <h3>TKC Portico</h3>
+        <div id="portico"></div>
+    </section>
+
 </body>
 <script>
     var KEYBOARD = {};
@@ -674,7 +679,21 @@
         },
         {
             val: ['Ctrl', 'Win', 'Alt', 'Spacebar', 'Alt', 'Win', 'Ctrl', '', 'Left', 'Down', 'Right'],
-            size: ['1_5', '1', '1_5', '7', '1_5', '1', '1_5', 'blank_0_5', '1', '1', '1']
+            size: ['1_5', '1', '1_5', '7', '1_5', '1', '1_  5', 'blank_0_5', '1', '1', '1']
+        }
+    ];
+
+    KEYBOARD['portico'] = [
+        {
+            size: ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2', '1']
+        }, {
+            size: ['1_5', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_5', '1']
+        }, {
+            size: ['1_75', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2_25', '1']
+        }, {
+            size: ['1_25', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1_75', '1', '1']
+        }, {
+            size: ['1_25', '1_25', '1_25', '6_25', '1_25', '1_25', 'blank_0_5', '1', '1', '1']
         }
     ];
 
@@ -715,6 +734,8 @@
     initKeyboard(document.querySelector('#custom_60'), KEYBOARD['custom_60']);
 
     initKeyboard(document.querySelector('#time_reforged_hotswap'), KEYBOARD['time_reforged_hotswap']);
+
+    initKeyboard(document.querySelector('#portico'), KEYBOARD['portico']);
 
 
     // susuwatar
